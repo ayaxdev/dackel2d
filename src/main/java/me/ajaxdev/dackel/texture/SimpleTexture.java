@@ -10,6 +10,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
 
+/**
+ * A simple 2D texture dependent on a PNG image in the program's resources.
+ */
 public class SimpleTexture implements ITexture {
 
     public final String path;

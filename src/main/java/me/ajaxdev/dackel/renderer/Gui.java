@@ -2,9 +2,16 @@ package me.ajaxdev.dackel.renderer;
 
 import me.ajaxdev.dackel.texture.ITexture;
 
+/**
+ * Used for drawing GUI elements on the screen.
+ */
 public class Gui {
 
+    /**
+     * Used for drawing rectangles on the screen.
+     */
     public static class Rectangles {
+
         public static void fillRelative(double x, double y, double width, double height, int color) {
             final PrimitiveRenderer primitiveRenderer = new PrimitiveRenderer(false, false);
 
@@ -130,6 +137,9 @@ public class Gui {
         }
     }
 
+    /**
+     * Used for drawing triangles on the screen.
+     */
     public static class Triangles {
 
         public static void fill(double x, double y, double size, int color) {

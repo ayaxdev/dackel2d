@@ -2,6 +2,9 @@ package me.ajaxdev.dackel.texture;
 
 import me.ajaxdev.dackel.util.Timer;
 
+/**
+ * A texture which switches between provided textures depending on the provided delay.
+ */
 public class AnimatedTexture implements ITexture {
 
     public final ITexture[] textures;

@@ -1,5 +1,8 @@
 package me.ajaxdev.dackel.scene;
 
+/**
+ * An empty scene which does nothing.
+ */
 public class EmptyScene implements IScene {
 
     public void show() { }

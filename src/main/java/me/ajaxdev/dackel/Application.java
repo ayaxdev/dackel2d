@@ -8,6 +8,10 @@ import org.lwjgl.glfw.GLFW;
 import org.lwjgl.opengl.GL;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * The main class of a Dackel program.
+ * Extend this class to create a window and draw to it.
+ */
 public class Application {
 
     private final String title;
@@ -20,6 +24,9 @@ public class Application {
     public final Mouse mouse = new Mouse();
     public final TextureManager textureManager = new TextureManager();
 
+    /**
+     * The scene shown by default when the window is created.
+     */
     private IScene currentScene;
 
     public Application(final IScene defaultScene, final int width, final int height, final String title, final boolean resizable) {
@@ -32,6 +39,11 @@ public class Application {
         this.title = title;
     }
 
+    /**
+     * Creates the application's window and begins the application loop.
+     *
+     * @return Whether the application successfully finished.
+     */
     public boolean run() {
         if(!GLFW.glfwInit()) {
             System.err.println("Unable to Init GLFW");
@@ -104,7 +116,7 @@ public class Application {
             }
         });
 
-        begin();
+        prepareGl();
 
         preLoop();
 
@@ -125,7 +137,7 @@ public class Application {
         return true;
     }
 
-    private void begin() {
+    private void prepareGl() {
         GL.createCapabilities();
 
         GL11.glMatrixMode(GL11.GL_PROJECTION);
@@ -164,12 +176,27 @@ public class Application {
         GLFW.glfwPollEvents();
     }
 
+    /**
+     * Ran before the application loop started.
+     * Put initialization (loading textures, etc.) code here.
+     */
     protected void preLoop() { }
 
+    /**
+     * Ran after the application loop finished and the application is closing.
+     */
     protected void postLoop() { }
 
+    /**
+     * Ran inside the application loop before the current scene draws.
+     */
     protected void in() { }
 
+    /**
+     * Sets the provided scene to the current scene.
+     *
+     * @param scene New scene.
+     */
     public void openScene(final IScene scene) {
         if (scene == null) {
             openScene(defaultScene);
@@ -186,18 +213,30 @@ public class Application {
         currentScene = scene;
     }
 
+    /**
+     * @return The window handle.
+     */
     public long getWindow() {
         return window;
     }
 
+    /**
+     * @return The window title.
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * @return The window width.
+     */
     public int getWindowWidth() {
         return windowWidth;
     }
 
+    /**
+     * @return The window height.
+     */
     public int getWindowHeight() {
         return windowHeight;
     }

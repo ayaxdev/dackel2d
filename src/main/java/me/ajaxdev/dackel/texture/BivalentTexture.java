@@ -2,6 +2,9 @@ package me.ajaxdev.dackel.texture;
 
 import java.util.function.Supplier;
 
+/**
+ * A texture which switches between 2 different textures depending on the provided switch.
+ */
 public class BivalentTexture implements ITexture {
 
     private final ITexture defaultTexture;

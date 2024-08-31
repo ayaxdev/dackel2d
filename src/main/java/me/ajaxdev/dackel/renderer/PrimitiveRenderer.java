@@ -3,6 +3,9 @@ package me.ajaxdev.dackel.renderer;
 import me.ajaxdev.dackel.texture.ITexture;
 import org.lwjgl.opengl.GL11;
 
+/**
+ * A class for drawing GUI with GL.
+ */
 public class PrimitiveRenderer {
 
     private double[][] vertexPositionBuffer;

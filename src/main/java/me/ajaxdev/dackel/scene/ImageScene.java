@@ -5,6 +5,9 @@ import me.ajaxdev.dackel.texture.ITexture;
 
 import java.util.function.Supplier;
 
+/**
+ * A scene which draws an image in the background.
+ */
 public class ImageScene extends EmptyScene {
 
     public final Supplier<ITexture> background;

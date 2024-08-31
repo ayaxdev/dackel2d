@@ -2,6 +2,9 @@ package me.ajaxdev.dackel.renderer;
 
 import org.lwjgl.opengl.GL11;
 
+/**
+ * Is what the PrimitiveRenderer should draw.
+ */
 public enum PrimitiveRendererMode {
     SQUARE(4, GL11.GL_QUADS),
     TRIANGLE(3, GL11.GL_TRIANGLES);

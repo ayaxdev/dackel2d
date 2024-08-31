@@ -3,6 +3,9 @@ package me.ajaxdev.dackel.texture;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The manager which bounds textures and allows us to access them.
+ */
 public class TextureManager {
 
     private final Map<String, ITexture> loadedTextureMap = new HashMap<>();
