@@ -1,11 +1,12 @@
 package me.ajaxdev.dackel.texture;
 
-import de.matthiasmann.twl.utils.PNGDecoder;
 import me.ajaxdev.dackel.renderer.GlManager;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -21,7 +22,7 @@ public class SimpleTexture implements ITexture {
     private int glId, width, height;
 
     public SimpleTexture(final String path) {
-        this(path, TextureType.PNG_RGBA);
+        this(path, TextureType.RGBA);
     }
 
     public SimpleTexture(final String path, final TextureType textureType) {
@@ -34,14 +35,35 @@ public class SimpleTexture implements ITexture {
             return;
 
         try (final InputStream stream = SimpleTexture.class.getResourceAsStream(path)) {
-            final PNGDecoder decoder = new PNGDecoder(stream);
+            if (stream == null)
+                throw new NullPointerException("Texture stream is null");
 
-            width = decoder.getWidth();
-            height = decoder.getHeight();
+            final BufferedImage image = ImageIO.read(stream);
+
+            if (image == null) {
+                throw new IOException("Image format not supported or image is null");
+            }
+
+            width = image.getWidth();
+            height = image.getHeight();
+
+            final int[] pixels = new int[width * height];
+
+            image.getRGB(0, 0, width, height, pixels, 0, width);
 
             final ByteBuffer buf = BufferUtils.createByteBuffer(textureType.channels * width * height);
 
-            decoder.decode(buf, width * textureType.channels, textureType.decoderFormat);
+            for (int y = 0; y < height; y++) {
+                for (int x = 0; x < width; x++) {
+                    int pixel = pixels[y * width + x];
+                    buf.put((byte) ((pixel >> 16) & 0xFF)); // Red component
+                    buf.put((byte) ((pixel >> 8) & 0xFF));  // Green component
+                    buf.put((byte) (pixel & 0xFF));         // Blue component
+
+                    if (textureType == TextureType.RGBA)
+                        buf.put((byte) ((pixel >> 24) & 0xFF)); // Alpha component
+                }
+            }
 
             buf.flip();
 
@@ -58,7 +80,7 @@ public class SimpleTexture implements ITexture {
             GL11.glTexImage2D(GL11.GL_TEXTURE_2D, 0, textureType.glFormat, width, height, 0, textureType.glFormat, GL11.GL_UNSIGNED_BYTE, buf);
 
             GlManager.disableTexture();
-        } catch (IOException e) {
+        } catch (Exception e) {
             throw new RuntimeException("Failed to load texture", e);
         }
     }
@@ -76,14 +98,12 @@ public class SimpleTexture implements ITexture {
     }
 
     public enum TextureType {
-        PNG_RGB(PNGDecoder.Format.RGB, GL11.GL_RGB, 3),
-        PNG_RGBA(PNGDecoder.Format.RGBA, GL11.GL_RGBA, 4);
+        RGB(GL11.GL_RGB, 3),
+        RGBA(GL11.GL_RGBA, 4);
 
-        public final PNGDecoder.Format decoderFormat;
         public final int glFormat, channels;
 
-        TextureType(PNGDecoder.Format decoderFormat, int glFormat, int channels) {
-            this.decoderFormat = decoderFormat;
+        TextureType(int glFormat, int channels) {
             this.glFormat = glFormat;
             this.channels = channels;
         }
