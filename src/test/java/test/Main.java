@@ -1,11 +1,18 @@
 package test;
 
 import me.ajaxdev.dackel.Application;
+import me.ajaxdev.dackel.ApplicationArgs;
 
 public class Main extends Application {
 
     public Main() {
-        super(new TestScene(), 500, 500, "Test", false);
+        super(ApplicationArgs.builder()
+                .setTitle("Test")
+                .setHeight(500)
+                .setWidth(600)
+                .setResizeable(true)
+                .setScene(new TestScene())
+                .build());
     }
 
     public static void main(String[] args) {

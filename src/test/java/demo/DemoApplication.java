@@ -1,12 +1,19 @@
 package demo;
 
 import me.ajaxdev.dackel.Application;
+import me.ajaxdev.dackel.ApplicationArgs;
 import me.ajaxdev.dackel.texture.SimpleTexture;
 
 public class DemoApplication extends Application {
 
     public DemoApplication() {
-        super(new MenuScene(), 500, 500, "Demo", false);
+        super(ApplicationArgs.builder()
+                .setTitle("Demo Game")
+                .setHeight(500)
+                .setWidth(500)
+                .setResizeable(false)
+                .setScene(new MenuScene())
+                .build());
     }
 
     @Override
@@ -21,7 +28,6 @@ public class DemoApplication extends Application {
         textureManager.order("walking2", new SimpleTexture("/demo/walk2.png"));
         textureManager.order("frog", new SimpleTexture("/demo/frog.png"));
         textureManager.order("menu", new SimpleTexture("/demo/menu.png"));
-        System.out.println("I");
     }
 
 }

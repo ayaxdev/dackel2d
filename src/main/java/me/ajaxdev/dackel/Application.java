@@ -29,6 +29,15 @@ public class Application {
      */
     private IScene currentScene;
 
+    public Application(final ApplicationArgs applicationArgs) {
+        this.defaultScene = this.currentScene = applicationArgs.defaultScene();
+        this.title = applicationArgs.title();
+        this.windowWidth = applicationArgs.width();
+        this.windowHeight = applicationArgs.height();
+        this.resizable = applicationArgs.resizeable();
+    }
+
+    @Deprecated
     public Application(final IScene defaultScene, final int width, final int height, final String title, final boolean resizable) {
         this.defaultScene = this.currentScene = defaultScene;
 
