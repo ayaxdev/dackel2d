@@ -40,9 +40,8 @@ public class SimpleTexture implements ITexture {
 
             final BufferedImage image = ImageIO.read(stream);
 
-            if (image == null) {
+            if (image == null)
                 throw new IOException("Image format not supported or image is null");
-            }
 
             width = image.getWidth();
             height = image.getHeight();
