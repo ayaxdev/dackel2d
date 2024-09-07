@@ -1,5 +1,6 @@
 package me.ajaxdev.dackel;
 
+import me.ajaxdev.dackel.handler.Camera;
 import me.ajaxdev.dackel.handler.Display;
 import me.ajaxdev.dackel.handler.Mouse;
 import me.ajaxdev.dackel.renderer.GlManager;
@@ -23,6 +24,7 @@ public class Application {
 
     public final Display display = new Display(this);
     public final Mouse mouse = new Mouse();
+    public final Camera camera = new Camera();
     public final TextureManager textureManager = new TextureManager();
 
     /**
@@ -165,7 +167,14 @@ public class Application {
         in();
 
         if (currentScene != null) {
+            currentScene.drawBackground(display.getWindowWidth(), display.getWindowHeight(), delta);
+
+            camera.begin();
+
             currentScene.drawGame(display.getWindowWidth(), display.getWindowHeight(), delta);
+
+            camera.end();
+
             currentScene.drawOverlay(display.getWindowWidth(), display.getWindowHeight(), delta);
         }
 

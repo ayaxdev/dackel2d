@@ -20,10 +20,10 @@ public class ImageScene extends EmptyScene {
         this.background = background;
     }
 
-    public void drawGame(double windowWidth, double windowHeight, long delta) {
+    public void drawBackground(double windowWidth, double windowHeight, long delta) {
         Gui.Rectangles.textureAbsolute(0, 0, windowWidth, windowHeight, background.get(), -1);
 
-        super.drawGame(windowWidth, windowHeight, delta);
+        super.drawBackground(windowWidth, windowHeight, delta);
     }
 
 }

@@ -13,6 +13,8 @@ public class EmptyScene implements IScene {
 
     public void postShow() { }
 
+    public void drawBackground(double windowWidth, double windowHeight, long delta) { }
+
     public void drawOverlay(double windowWidth, double windowHeight, long delta) { }
 
     public void drawGame(double windowWidth, double windowHeight, long delta) { }
