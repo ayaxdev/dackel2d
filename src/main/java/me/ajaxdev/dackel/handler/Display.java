@@ -3,6 +3,9 @@ package me.ajaxdev.dackel.handler;
 import me.ajaxdev.dackel.Application;
 import org.lwjgl.glfw.GLFW;
 
+/**
+ * Tracks the window state.
+ */
 public class Display {
 
     private final Application owner;
@@ -312,11 +315,21 @@ public class Display {
         return handle != Integer.MIN_VALUE;
     }
 
+    /**
+     * Verifies whether the window has been created and throws an exception if not.
+     *
+     * @param action The action that's going to be reported in the exception.
+     */
     private void check(final String action) {
         if (!isCreated())
             error(action);
     }
 
+    /**
+     * Throws an exception for the window is not created yet.
+     *
+     * @param action The action which caused this error to be thrown.
+     */
     private void error(final String action) {
         throw new IllegalStateException(String.format("Cannot %s an uncreated window", action));
     }
