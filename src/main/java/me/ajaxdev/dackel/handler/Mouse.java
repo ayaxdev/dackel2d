@@ -1,4 +1,4 @@
-package me.ajaxdev.dackel.input;
+package me.ajaxdev.dackel.handler;
 
 /**
  * Tracks the mouse pointer state.

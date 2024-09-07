@@ -1,7 +1,7 @@
 package me.ajaxdev.dackel;
 
-import me.ajaxdev.dackel.input.Display;
-import me.ajaxdev.dackel.input.Mouse;
+import me.ajaxdev.dackel.handler.Display;
+import me.ajaxdev.dackel.handler.Mouse;
 import me.ajaxdev.dackel.renderer.GlManager;
 import me.ajaxdev.dackel.scene.IScene;
 import me.ajaxdev.dackel.texture.TextureManager;

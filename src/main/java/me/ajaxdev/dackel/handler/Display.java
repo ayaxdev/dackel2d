@@ -1,4 +1,4 @@
-package me.ajaxdev.dackel.input;
+package me.ajaxdev.dackel.handler;
 
 import me.ajaxdev.dackel.Application;
 import org.lwjgl.glfw.GLFW;
