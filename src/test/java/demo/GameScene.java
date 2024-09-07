@@ -81,8 +81,8 @@ public class GameScene extends ImageScene {
     }
 
     @Override
-    public void drawScreen(double windowWidth, double windowHeight, long delta) {
-        super.drawScreen(windowWidth, windowHeight, delta);
+    public void drawGame(double windowWidth, double windowHeight, long delta) {
+        super.drawGame(windowWidth, windowHeight, delta);
 
         if (System.currentTimeMillis() - showTime > 2000)
             moveDragon = true;

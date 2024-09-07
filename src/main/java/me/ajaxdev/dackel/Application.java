@@ -165,7 +165,8 @@ public class Application {
         in();
 
         if (currentScene != null) {
-            currentScene.drawScreen(display.getWindowWidth(), display.getWindowHeight(), delta);
+            currentScene.drawGame(display.getWindowWidth(), display.getWindowHeight(), delta);
+            currentScene.drawOverlay(display.getWindowWidth(), display.getWindowHeight(), delta);
         }
 
         display.continueLoop();

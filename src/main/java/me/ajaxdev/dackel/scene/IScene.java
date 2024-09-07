@@ -12,7 +12,9 @@ public interface IScene {
 
     void postShow();
 
-    void drawScreen(double windowWidth, double windowHeight, long delta);
+    void drawOverlay(double windowWidth, double windowHeight, long delta);
+
+    void drawGame(double windowWidth, double windowHeight, long delta);
 
     void mouseClicked(double x, double y, int button);
 
