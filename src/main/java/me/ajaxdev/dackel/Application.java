@@ -165,7 +165,7 @@ public class Application {
         in();
 
         if (currentScene != null) {
-            currentScene.drawScreen(defaultWindowWidth, defaultWindowHeight, delta);
+            currentScene.drawScreen(display.getWindowWidth(), display.getWindowHeight(), delta);
         }
 
         display.continueLoop();

@@ -26,6 +26,12 @@ public class Display {
     public void prepare(final int defaultWidth, final int defaultHeight, final String defaultTitle) {
         handle = GLFW.glfwCreateWindow(defaultWidth, defaultHeight, defaultTitle, 0, 0);
 
+        windowWidth = defaultWidth;
+        windowHeight = defaultHeight;
+
+        windowX = glfwGetWindowWidth();
+        windowY = glfwGetWindowHeight();
+
         GLFW.glfwSetWindowSizeCallback(handle, (context, width, height) -> {
             windowWidth = width;
             windowHeight = height;
