@@ -2,7 +2,6 @@ package test;
 
 import me.ajaxdev.dackel.renderer.Gui;
 import me.ajaxdev.dackel.scene.EmptyScene;
-import org.lwjgl.opengl.GL11;
 
 import java.awt.*;
 
@@ -15,6 +14,8 @@ public class TestScene extends EmptyScene {
         final double size = 300;
 
         Gui.Triangles.fillGradient(windowWidth / 2 - size / 2, windowHeight / 2 - size / 2, size, Color.RED.getRGB(), Color.BLUE.getRGB(), Color.GREEN.getRGB());
+
+        this.getLastApplication().display.setWindowX(50);
     }
 
 }

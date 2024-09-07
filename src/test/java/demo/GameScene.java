@@ -1,5 +1,6 @@
 package demo;
 
+import me.ajaxdev.dackel.Application;
 import me.ajaxdev.dackel.renderer.Gui;
 import me.ajaxdev.dackel.scene.ImageScene;
 import me.ajaxdev.dackel.texture.ITexture;
@@ -39,9 +40,9 @@ public class GameScene extends ImageScene {
     }
 
     @Override
-    public void show() {
-        final double width = Main.getDemo().getWindowWidth();
-        final double height = Main.getDemo().getWindowHeight();
+    public void show(final Application application) {
+        final double width = Main.getDemo().display.getWindowWidth();
+        final double height = Main.getDemo().display.getWindowHeight();
 
         bugFinish[0][0] = width / 4 / 2;
         bugFinish[0][1] = height / 3 / 2;

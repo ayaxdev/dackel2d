@@ -1,5 +1,6 @@
 package me.ajaxdev.dackel;
 
+import me.ajaxdev.dackel.input.Display;
 import me.ajaxdev.dackel.input.Mouse;
 import me.ajaxdev.dackel.renderer.GlManager;
 import me.ajaxdev.dackel.scene.IScene;
@@ -14,13 +15,13 @@ import org.lwjgl.opengl.GL11;
  */
 public class Application {
 
-    private final String title;
+    private final String defaultTitle;
     private final boolean resizable;
     private final IScene defaultScene;
 
-    private long window;
-    private int windowWidth, windowHeight;
+    private final int defaultWindowWidth, defaultWindowHeight;
 
+    public final Display display = new Display(this);
     public final Mouse mouse = new Mouse();
     public final TextureManager textureManager = new TextureManager();
 
@@ -31,21 +32,21 @@ public class Application {
 
     public Application(final ApplicationArgs applicationArgs) {
         this.defaultScene = this.currentScene = applicationArgs.defaultScene();
-        this.title = applicationArgs.title();
-        this.windowWidth = applicationArgs.width();
-        this.windowHeight = applicationArgs.height();
+        this.defaultTitle = applicationArgs.title();
+        this.defaultWindowWidth = applicationArgs.width();
+        this.defaultWindowHeight = applicationArgs.height();
         this.resizable = applicationArgs.resizeable();
     }
 
     @Deprecated
-    public Application(final IScene defaultScene, final int width, final int height, final String title, final boolean resizable) {
+    public Application(final IScene defaultScene, final int width, final int height, final String defaultTitle, final boolean resizable) {
         this.defaultScene = this.currentScene = defaultScene;
 
-        this.windowWidth = width;
-        this.windowHeight = height;
+        this.defaultWindowWidth = width;
+        this.defaultWindowHeight = height;
         this.resizable = resizable;
 
-        this.title = title;
+        this.defaultTitle = defaultTitle;
     }
 
     /**
@@ -63,25 +64,11 @@ public class Application {
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, resizable ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
 
-        window = GLFW.glfwCreateWindow(windowWidth, windowHeight, title, 0, 0);
+        display.prepare(defaultWindowWidth, defaultWindowHeight, defaultTitle);
 
-        GLFW.glfwMakeContextCurrent(window);
-        GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
+        display.show();
 
-        GLFW.glfwShowWindow(window);
-
-        GLFW.glfwSetWindowSizeCallback(window, (context, width, height) -> {
-            Application.this.windowWidth = width;
-            Application.this.windowHeight = height;
-
-            GL11.glMatrixMode(GL11.GL_PROJECTION);
-            GL11.glViewport(0, 0, windowWidth, windowHeight);
-            GL11.glLoadIdentity();
-            GL11.glOrtho(0, windowWidth, windowHeight, 0, 1, -1);
-            GL11.glMatrixMode(GL11.GL_MODELVIEW);
-        });
-
-        GLFW.glfwSetCursorPosCallback(window, (window, x, y) -> {
+        GLFW.glfwSetCursorPosCallback(display.getHandle(), (window, x, y) -> {
             this.mouse.move(x, y);
 
             if (currentScene != null) {
@@ -89,7 +76,7 @@ public class Application {
             }
         });
 
-        GLFW.glfwSetKeyCallback(window, (window, key, scancode, action, mods) -> {
+        GLFW.glfwSetKeyCallback(display.getHandle(), (window, key, scancode, action, mods) -> {
             if (currentScene != null) {
                 if (action == GLFW.GLFW_PRESS) {
                     currentScene.keyPressed(key, scancode);
@@ -101,13 +88,13 @@ public class Application {
             }
         });
 
-        GLFW.glfwSetCharCallback(window, (window, chars) -> {
+        GLFW.glfwSetCharCallback(display.getHandle(), (window, chars) -> {
             if (currentScene != null) {
                 currentScene.keyTyped((char) chars);
             }
         });
 
-        GLFW.glfwSetMouseButtonCallback(window, (window, button, action, mods) -> {
+        GLFW.glfwSetMouseButtonCallback(display.getHandle(), (window, button, action, mods) -> {
            if (currentScene != null) {
                if (action == GLFW.GLFW_PRESS) {
                    currentScene.mouseClicked(mouse.getX(), mouse.getY(), button);
@@ -117,7 +104,7 @@ public class Application {
            }
         });
 
-        GLFW.glfwSetScrollCallback(window, (window, deltaX, deltaY) -> {
+        GLFW.glfwSetScrollCallback(display.getHandle(), (window, deltaX, deltaY) -> {
             mouse.scroll(deltaX, deltaY);
 
             if (currentScene != null) {
@@ -135,11 +122,13 @@ public class Application {
 
         long time = System.currentTimeMillis();
 
-        while (!GLFW.glfwWindowShouldClose(window)) {
+        while (!display.isCloseRequested()) {
             loop(System.currentTimeMillis() - time);
 
             time = System.currentTimeMillis();
         }
+
+        display.destroy();
 
         postLoop();
 
@@ -151,9 +140,9 @@ public class Application {
 
         GL11.glMatrixMode(GL11.GL_PROJECTION);
 
-        GL11.glViewport(0, 0, windowWidth, windowHeight);
+        GL11.glViewport(0, 0, defaultWindowWidth, defaultWindowHeight);
         GL11.glLoadIdentity();
-        GL11.glOrtho(0, windowWidth, windowHeight, 0, 1, -1);
+        GL11.glOrtho(0, defaultWindowWidth, defaultWindowHeight, 0, 1, -1);
 
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
         GL11.glLoadIdentity();
@@ -171,18 +160,15 @@ public class Application {
     }
 
     private void loop(long delta) {
-        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
-        GlManager.resetColor();
-        GlManager.resetTexture();
+        GlManager.clear();
 
         in();
 
         if (currentScene != null) {
-            currentScene.drawScreen(windowWidth, windowHeight, delta);
+            currentScene.drawScreen(defaultWindowWidth, defaultWindowHeight, delta);
         }
 
-        GLFW.glfwSwapBuffers(window);
-        GLFW.glfwPollEvents();
+        display.continueLoop();
     }
 
     /**
@@ -213,7 +199,7 @@ public class Application {
             return;
         }
 
-        scene.show();
+        scene.show(this);
 
         textureManager.reload();
 
@@ -222,31 +208,12 @@ public class Application {
         currentScene = scene;
     }
 
-    /**
-     * @return The window handle.
-     */
-    public long getWindow() {
-        return window;
+    public void updateWidth(final int windowWidth, final int windowHeight) {
+        GL11.glMatrixMode(GL11.GL_PROJECTION);
+        GL11.glViewport(0, 0, windowWidth, windowHeight);
+        GL11.glLoadIdentity();
+        GL11.glOrtho(0, windowWidth, windowHeight, 0, 1, -1);
+        GL11.glMatrixMode(GL11.GL_MODELVIEW);
     }
 
-    /**
-     * @return The window title.
-     */
-    public String getTitle() {
-        return title;
-    }
-
-    /**
-     * @return The window width.
-     */
-    public int getWindowWidth() {
-        return windowWidth;
-    }
-
-    /**
-     * @return The window height.
-     */
-    public int getWindowHeight() {
-        return windowHeight;
-    }
 }

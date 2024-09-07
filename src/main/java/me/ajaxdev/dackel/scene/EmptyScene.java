@@ -1,11 +1,15 @@
 package me.ajaxdev.dackel.scene;
 
+import me.ajaxdev.dackel.Application;
+
 /**
  * An empty scene which does nothing.
  */
 public class EmptyScene implements IScene {
 
-    public void show() { }
+    private Application lastApplication;
+
+    public void show(final Application application) { this.lastApplication = application; }
 
     public void postShow() { }
 
@@ -27,4 +31,7 @@ public class EmptyScene implements IScene {
 
     public void keyTyped(char character) { }
 
+    protected Application getLastApplication() {
+        return lastApplication;
+    }
 }

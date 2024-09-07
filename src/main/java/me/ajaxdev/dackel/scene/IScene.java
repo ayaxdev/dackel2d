@@ -1,12 +1,14 @@
 package me.ajaxdev.dackel.scene;
 
+import me.ajaxdev.dackel.Application;
+
 /**
  * The primary interface for interacting with the framework.
  * Allows you to handle different input and draw events.
  */
 public interface IScene {
 
-    void show();
+    void show(final Application application);
 
     void postShow();
 

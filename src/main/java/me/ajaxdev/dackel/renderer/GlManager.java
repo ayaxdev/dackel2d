@@ -21,6 +21,15 @@ public class GlManager {
     private static boolean texture2d = false;
 
     /**
+     * Clears the required GL properties before looping.
+     */
+    public static void clear() {
+        GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
+        GlManager.resetColor();
+        GlManager.resetTexture();
+    }
+
+    /**
      * Checks whether the color state is different from the provided color and updates it if so.
      *
      * @param red   The red value of the new color state.
