@@ -3,7 +3,7 @@ package me.ajaxdev.dackel;
 import me.ajaxdev.dackel.scene.EmptyScene;
 import me.ajaxdev.dackel.scene.IScene;
 
-public record ApplicationArgs(IScene defaultScene, String title, boolean resizeable, int width, int height, int antialiasing) {
+public record ApplicationArgs(IScene defaultScene, String title, boolean resizeable, int width, int height, int antialiasing, boolean vsync) {
 
     public static ApplicationBuilder builder() {
         return new ApplicationBuilder();
@@ -16,6 +16,7 @@ public record ApplicationArgs(IScene defaultScene, String title, boolean resizea
         private boolean resizeable = true;
         private int width = -1, height = -1;
         private int antialiasing = -1;
+        private boolean vsync = true;
 
         public ApplicationBuilder setTitle(final String title) {
             this.title = title;
@@ -47,6 +48,11 @@ public record ApplicationArgs(IScene defaultScene, String title, boolean resizea
             return this;
         }
 
+        public ApplicationBuilder setVsync(final boolean vsync) {
+            this.vsync = vsync;
+            return this;
+        }
+
         public ApplicationArgs build() {
             return new ApplicationArgs(
                     defaultScene == null ? new EmptyScene() : defaultScene,
@@ -54,7 +60,8 @@ public record ApplicationArgs(IScene defaultScene, String title, boolean resizea
                     this.resizeable,
                     this.width == -1 ? 100 : Math.abs(this.width),
                     this.height == -1 ? 100 : Math.abs(this.height),
-                    this.antialiasing
+                    this.antialiasing,
+                    this.vsync
             );
         }
     }

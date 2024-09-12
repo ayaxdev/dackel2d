@@ -41,6 +41,8 @@ public class GameScene extends ImageScene {
 
     @Override
     public void show(final Application application) {
+        super.show(application);
+
         final double width = Main.getDemo().display.getWindowWidth();
         final double height = Main.getDemo().display.getWindowHeight();
 
@@ -83,6 +85,8 @@ public class GameScene extends ImageScene {
     @Override
     public void drawGame(double windowWidth, double windowHeight, long delta) {
         super.drawGame(windowWidth, windowHeight, delta);
+
+        getLastApplication().display.setTitle(String.format("Game: %d fps", getLastApplication().getFps()));
 
         if (System.currentTimeMillis() - showTime > 2000)
             moveDragon = true;

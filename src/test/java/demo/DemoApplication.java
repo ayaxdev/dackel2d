@@ -13,6 +13,8 @@ public class DemoApplication extends Application {
                 .setWidth(500)
                 .setResizeable(false)
                 .setScene(new MenuScene())
+                .setAntialiasing(0)
+                .setVsync(true)
                 .build());
     }
 

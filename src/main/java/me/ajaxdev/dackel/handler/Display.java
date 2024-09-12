@@ -51,11 +51,13 @@ public class Display {
     /**
      * Shows the window.
      */
-    public void show() {
+    public void show(final boolean vsync) {
         check("show");
 
         GLFW.glfwMakeContextCurrent(handle);
-        GLFW.glfwSwapInterval(GLFW.GLFW_TRUE);
+
+        vsync(vsync);
+
         GLFW.glfwShowWindow(handle);
     }
 
@@ -299,6 +301,17 @@ public class Display {
         check("destroy");
 
         GLFW.glfwDestroyWindow(handle);
+    }
+
+    /**
+     * Sets whether the window should use vsync or not.
+     *
+     * @param vsync Whether the window should cap its framerate to the window Hz or not.
+     */
+    public void vsync(final boolean vsync) {
+        check("set vsync of");
+
+        GLFW.glfwSwapInterval(vsync ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
     }
 
     /**

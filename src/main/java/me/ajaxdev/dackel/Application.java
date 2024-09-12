@@ -21,11 +21,16 @@ public class Application {
     private final IScene defaultScene;
     private final int defaultWindowWidth, defaultWindowHeight;
     private final int antialiasing;
+    private final boolean vsyncByDefault;
 
     public final Display display = new Display(this);
     public final Mouse mouse = new Mouse();
     public final Camera camera = new Camera();
     public final TextureManager textureManager = new TextureManager();
+
+    private int lastFramesPerSecond;
+    private int framesPerSecond;
+    private long lastUpdate;
 
     /**
      * The scene shown by default when the window is created.
@@ -39,6 +44,7 @@ public class Application {
         this.defaultWindowHeight = applicationArgs.height();
         this.resizable = applicationArgs.resizeable();
         this.antialiasing = applicationArgs.antialiasing();
+        this.vsyncByDefault = applicationArgs.vsync();
     }
 
     @Deprecated
@@ -52,6 +58,7 @@ public class Application {
         this.defaultTitle = defaultTitle;
 
         this.antialiasing = 0;
+        this.vsyncByDefault = true;
     }
 
     /**
@@ -67,6 +74,8 @@ public class Application {
 
         GLFW.glfwDefaultWindowHints();
 
+        System.out.printf("%s%n", GLFW.glfwGetCurrentContext());
+
         if (antialiasing != -1)
             GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, antialiasing);
         else
@@ -77,7 +86,7 @@ public class Application {
 
         display.prepare(defaultWindowWidth, defaultWindowHeight, defaultTitle);
 
-        display.show();
+        display.show(vsyncByDefault);
 
         GLFW.glfwSetCursorPosCallback(display.getHandle(), (window, x, y) -> {
             this.mouse.move(x, y);
@@ -134,7 +143,17 @@ public class Application {
         long time = System.currentTimeMillis();
 
         while (!display.isCloseRequested()) {
-            loop(System.currentTimeMillis() - time);
+            final long currentTime = System.currentTimeMillis();
+
+            if (currentTime - lastUpdate >= 1000) {
+                lastUpdate = currentTime;
+                lastFramesPerSecond = framesPerSecond;
+                framesPerSecond = 0;
+            }
+
+            loop(currentTime - time);
+
+            framesPerSecond++;
 
             time = System.currentTimeMillis();
         }
@@ -235,4 +254,10 @@ public class Application {
         GL11.glMatrixMode(GL11.GL_MODELVIEW);
     }
 
+    /**
+     * @return The amount of frames drawn in the last second.
+     */
+    public int getFps() {
+        return lastFramesPerSecond;
+    }
 }
