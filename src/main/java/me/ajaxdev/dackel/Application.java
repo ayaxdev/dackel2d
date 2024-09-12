@@ -19,8 +19,8 @@ public class Application {
     private final String defaultTitle;
     private final boolean resizable;
     private final IScene defaultScene;
-
     private final int defaultWindowWidth, defaultWindowHeight;
+    private final int antialiasing;
 
     public final Display display = new Display(this);
     public final Mouse mouse = new Mouse();
@@ -38,6 +38,7 @@ public class Application {
         this.defaultWindowWidth = applicationArgs.width();
         this.defaultWindowHeight = applicationArgs.height();
         this.resizable = applicationArgs.resizeable();
+        this.antialiasing = applicationArgs.antialiasing();
     }
 
     @Deprecated
@@ -49,6 +50,8 @@ public class Application {
         this.resizable = resizable;
 
         this.defaultTitle = defaultTitle;
+
+        this.antialiasing = 0;
     }
 
     /**
@@ -63,6 +66,12 @@ public class Application {
         }
 
         GLFW.glfwDefaultWindowHints();
+
+        if (antialiasing != -1)
+            GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, antialiasing);
+        else
+            GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, 4);
+
         GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE, GLFW.GLFW_FALSE);
         GLFW.glfwWindowHint(GLFW.GLFW_RESIZABLE, resizable ? GLFW.GLFW_TRUE : GLFW.GLFW_FALSE);
 
