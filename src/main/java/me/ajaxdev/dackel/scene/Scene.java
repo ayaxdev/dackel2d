@@ -32,7 +32,7 @@ public class Scene implements IScene {
 
     public void drawGame(double windowWidth, double windowHeight, double delta) {
         components.forEach(component -> component.drawGame(windowWidth, windowHeight, delta));
-        objects.forEach(GameObject::draw);
+        objects.forEach(object -> object.draw(windowWidth, windowHeight, delta));
     }
 
     public void mouseClicked(double x, double y, int button) {

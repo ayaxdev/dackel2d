@@ -15,17 +15,7 @@ public class TestScene extends Scene {
         if (objects.isEmpty() && components.isEmpty()) {
             final ITexture texture = Main.INSTANCE.textureManager.get("bug");
 
-            final GameObject playerObject = new GameObject(texture, 0, 0, 60, 60, -1) {
-                @Override
-                protected void init() {
-
-                }
-
-                @Override
-                protected void update() {
-
-                }
-            };
+            final GameObject playerObject = new GameObject(texture, 0, 0, 60, 60, -1);
 
             objects.add(playerObject);
 

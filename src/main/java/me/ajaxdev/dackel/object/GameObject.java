@@ -90,14 +90,14 @@ public class GameObject {
     /**
      * Is used internally by the engine to draw the object.
      */
-    public void draw() {
+    public void draw(double windowWidth, double windowHeight, double delta) {
         if (firstUse) {
             init();
 
             firstUse = false;
         }
 
-        update();
+        update(windowWidth, windowHeight, delta);
 
         Gui.Rectangles.textureRelative(x, y, width, height, texture, color);
     }
@@ -110,7 +110,7 @@ public class GameObject {
     /**
      * Called every frame.
      */
-    protected void update() { }
+    protected void update(double windowWidth, double windowHeight, double delta) { }
 
     /**
      * Moves the object to a provided location.
