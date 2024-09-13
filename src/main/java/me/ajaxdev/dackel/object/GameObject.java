@@ -3,7 +3,7 @@ package me.ajaxdev.dackel.object;
 import me.ajaxdev.dackel.renderer.Gui;
 import me.ajaxdev.dackel.texture.ITexture;
 
-public abstract class GameObject {
+public class GameObject {
 
     public ITexture texture;
 
@@ -105,12 +105,12 @@ public abstract class GameObject {
     /**
      * Called when the game object is first used.
      */
-    protected abstract void init();
+    protected void init() { }
 
     /**
      * Called every frame.
      */
-    protected abstract void update();
+    protected void update() { }
 
     /**
      * Moves the object to a provided location.
