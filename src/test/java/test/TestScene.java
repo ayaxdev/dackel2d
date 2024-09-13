@@ -1,11 +1,11 @@
 package test;
 
 import me.ajaxdev.dackel.renderer.Gui;
-import me.ajaxdev.dackel.scene.EmptyScene;
+import me.ajaxdev.dackel.scene.Scene;
 
 import java.awt.*;
 
-public class TestScene extends EmptyScene {
+public class TestScene extends Scene {
 
     @Override
     public void drawGame(final double windowWidth, final double windowHeight, final long delta) {

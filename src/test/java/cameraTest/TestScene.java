@@ -1,12 +1,12 @@
 package cameraTest;
 
 import me.ajaxdev.dackel.renderer.Gui;
-import me.ajaxdev.dackel.scene.EmptyScene;
+import me.ajaxdev.dackel.scene.Scene;
 import org.lwjgl.glfw.GLFW;
 
 import java.awt.*;
 
-public class TestScene extends EmptyScene {
+public class TestScene extends Scene {
 
     private static final int MARK_COLOR = new Color(255, 0, 0, 100).getRGB();
     private static final int INDICATOR_COLOR = new Color(255, 255, 255, 100).getRGB();

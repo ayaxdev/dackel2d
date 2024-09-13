@@ -1,6 +1,6 @@
 package me.ajaxdev.dackel;
 
-import me.ajaxdev.dackel.scene.EmptyScene;
+import me.ajaxdev.dackel.scene.Scene;
 import me.ajaxdev.dackel.scene.IScene;
 
 public record ApplicationArgs(IScene defaultScene, String title, boolean resizeable, int width, int height, int antialiasing, boolean vsync) {
@@ -55,7 +55,7 @@ public record ApplicationArgs(IScene defaultScene, String title, boolean resizea
 
         public ApplicationArgs build() {
             return new ApplicationArgs(
-                    defaultScene == null ? new EmptyScene() : defaultScene,
+                    defaultScene == null ? new Scene() : defaultScene,
                     this.title == null ? "Dackel Application" : title,
                     this.resizeable,
                     this.width == -1 ? 100 : Math.abs(this.width),

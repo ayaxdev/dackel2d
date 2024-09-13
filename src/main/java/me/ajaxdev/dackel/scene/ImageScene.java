@@ -8,7 +8,7 @@ import java.util.function.Supplier;
 /**
  * A scene which draws an image in the background.
  */
-public class ImageScene extends EmptyScene {
+public class ImageScene extends Scene {
 
     public final Supplier<ITexture> background;
 

@@ -1,11 +1,17 @@
 package me.ajaxdev.dackel.scene;
 
 import me.ajaxdev.dackel.Application;
+import me.ajaxdev.dackel.object.GameObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An empty scene which does nothing.
  */
-public class EmptyScene implements IScene {
+public class Scene implements IScene {
+
+    public final List<GameObject> objects = new ArrayList<>();
 
     private Application lastApplication;
 
@@ -17,7 +23,9 @@ public class EmptyScene implements IScene {
 
     public void drawOverlay(double windowWidth, double windowHeight, long delta) { }
 
-    public void drawGame(double windowWidth, double windowHeight, long delta) { }
+    public void drawGame(double windowWidth, double windowHeight, long delta) {
+        objects.forEach(GameObject::draw);
+    }
 
     public void mouseClicked(double x, double y, int button) { }
 
@@ -38,4 +46,5 @@ public class EmptyScene implements IScene {
     protected Application getLastApplication() {
         return lastApplication;
     }
+
 }
