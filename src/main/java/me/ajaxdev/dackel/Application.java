@@ -74,8 +74,6 @@ public class Application {
 
         GLFW.glfwDefaultWindowHints();
 
-        System.out.printf("%s%n", GLFW.glfwGetCurrentContext());
-
         if (antialiasing != -1)
             GLFW.glfwWindowHint(GLFW.GLFW_SAMPLES, antialiasing);
         else
@@ -140,10 +138,10 @@ public class Application {
             openScene(currentScene);
         }
 
-        long time = System.currentTimeMillis();
+        long time = System.nanoTime();
 
         while (!display.isCloseRequested()) {
-            final long currentTime = System.currentTimeMillis();
+            final long currentTime = System.nanoTime();
 
             if (currentTime - lastUpdate >= 1000) {
                 lastUpdate = currentTime;
@@ -151,11 +149,13 @@ public class Application {
                 framesPerSecond = 0;
             }
 
-            loop(currentTime - time);
+            final long delta = currentTime - time;
+
+            loop(delta);
 
             framesPerSecond++;
 
-            time = System.currentTimeMillis();
+            time = System.nanoTime();
         }
 
         display.destroy();
