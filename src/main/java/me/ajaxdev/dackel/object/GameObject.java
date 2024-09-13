@@ -5,11 +5,11 @@ import me.ajaxdev.dackel.texture.ITexture;
 
 public abstract class GameObject {
 
-    private ITexture texture;
+    public ITexture texture;
 
-    private double x, y;
-    private double width, height;
-    private int color;
+    public double x, y;
+    public double width, height;
+    public int color;
 
     /**
      * Creates a new game object.

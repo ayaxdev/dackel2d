@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class Camera {
 
-    private int x = 0, y = 0;
+    public double x = 0, y = 0;
 
     /**
      * Translates the current matrix.
@@ -31,7 +31,7 @@ public class Camera {
      * @param x The provided location's X axis.
      * @param y The provided location's Y axis.
      */
-    public void moveTo(int x, int y) {
+    public void moveTo(double x, double y) {
         this.x = x;
         this.y = y;
     }
@@ -42,22 +42,8 @@ public class Camera {
      * @param x The provided delta's X axis.
      * @param y The provided delta's Y axis.
      */
-    public void moveBy(int x, int y) {
+    public void moveBy(double x, int y) {
         moveTo(this.x + x, this.y + y);
-    }
-
-    /**
-     * @return The camera's current X.
-     */
-    public int getY() {
-        return y;
-    }
-
-    /**
-     * @return The camera's current Y.
-     */
-    public int getX() {
-        return x;
     }
 
 }
