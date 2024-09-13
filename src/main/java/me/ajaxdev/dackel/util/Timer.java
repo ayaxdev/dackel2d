@@ -38,4 +38,18 @@ public class Timer {
         return System.nanoTime() - lastTime >= time;
     }
 
+    /**
+     * @return The time in milliseconds elapsed since last reset.
+     */
+    public long getElapsedTimeMs() {
+        return (System.nanoTime() - lastTime) / 1000000;
+    }
+
+    /**
+     * @return The time in nanoseconds elapsed since last reset.
+     */
+    public long getElapsedTimeNs() {
+        return System.nanoTime() - lastTime;
+    }
+
 }
