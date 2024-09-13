@@ -11,6 +11,8 @@ public abstract class GameObject {
     public double width, height;
     public int color;
 
+    private boolean firstUse = true;
+
     /**
      * Creates a new game object.
      *
@@ -89,6 +91,12 @@ public abstract class GameObject {
      * Is used internally by the engine to draw the object.
      */
     public void draw() {
+        if (firstUse) {
+            init();
+
+            firstUse = false;
+        }
+
         update();
 
         Gui.Rectangles.textureRelative(x, y, width, height, texture, color);
