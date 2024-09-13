@@ -21,8 +21,9 @@ public class KeyboardObjectMovementComponent implements IComponent {
         this.rightKey = rightKey;
     }
 
-    public void drawGame(double windowWidth, double windowHeight, long delta) {
-        final double curSpeed = (speed * delta) / 1000000;
+    @Override
+    public void drawGame(double windowWidth, double windowHeight, double delta) {
+        final double curSpeed = (speed * delta);
 
         if (left ^ right) {
             if (left) {

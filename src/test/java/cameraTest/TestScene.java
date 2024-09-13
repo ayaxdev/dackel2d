@@ -14,7 +14,7 @@ public class TestScene extends Scene {
     private int state = 0;
 
     @Override
-    public void drawBackground(final double windowWidth, final double windowHeight, final long delta) {
+    public void drawBackground(final double windowWidth, final double windowHeight, final double delta) {
         Gui.Rectangles.fillTopToBottomGradientRelative(0, 0, windowWidth, windowHeight, Color.DARK_GRAY.getRGB(), Color.DARK_GRAY.darker().getRGB());
 
         Gui.Rectangles.fillRelative(50, 0, 1, windowHeight, MARK_COLOR);
@@ -25,7 +25,7 @@ public class TestScene extends Scene {
     }
 
     @Override
-    public void drawGame(final double windowWidth, final double windowHeight, final long delta) {
+    public void drawGame(final double windowWidth, final double windowHeight, final double delta) {
         Gui.Rectangles.fillRelative(500, 0, 50, 50, INDICATOR_COLOR);
     }
 

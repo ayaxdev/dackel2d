@@ -83,7 +83,7 @@ public class GameScene extends ImageScene {
     }
 
     @Override
-    public void drawGame(double windowWidth, double windowHeight, long delta) {
+    public void drawGame(double windowWidth, double windowHeight, double delta) {
         super.drawGame(windowWidth, windowHeight, delta);
 
         getLastApplication().display.setTitle(String.format("Game: %d fps", getLastApplication().getFps()));

@@ -1,7 +1,7 @@
 package me.ajaxdev.dackel;
 
-import me.ajaxdev.dackel.scene.Scene;
 import me.ajaxdev.dackel.scene.IScene;
+import me.ajaxdev.dackel.scene.Scene;
 
 public record ApplicationArgs(IScene defaultScene, String title, boolean resizeable, int width, int height, int antialiasing, boolean vsync) {
 

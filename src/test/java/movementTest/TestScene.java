@@ -1,6 +1,5 @@
 package movementTest;
 
-import me.ajaxdev.dackel.Application;
 import me.ajaxdev.dackel.components.KeyboardObjectMovementComponent;
 import me.ajaxdev.dackel.object.GameObject;
 import me.ajaxdev.dackel.renderer.Gui;
@@ -30,13 +29,20 @@ public class TestScene extends Scene {
 
             objects.add(playerObject);
 
-            components.add(new KeyboardObjectMovementComponent(playerObject, 500, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D));
+            components.add(new KeyboardObjectMovementComponent(playerObject, 0.1d, GLFW.GLFW_KEY_W, GLFW.GLFW_KEY_S, GLFW.GLFW_KEY_A, GLFW.GLFW_KEY_D));
         }
     }
 
     @Override
-    public void drawBackground(final double windowWidth, final double windowHeight, final long delta) {
+    public void drawBackground(final double windowWidth, final double windowHeight, final double delta) {
         Gui.Rectangles.fillTopToBottomGradientRelative(0, 0, windowWidth, windowHeight, Color.DARK_GRAY.getRGB(), Color.DARK_GRAY.darker().getRGB());
+    }
+
+    @Override
+    public void drawGame(double windowWidth, double windowHeight, double delta) {
+        super.drawGame(windowWidth, windowHeight, delta);
+
+        getLastApplication().display.setTitle(String.format("Game: %d fps", getLastApplication().getFps()));
     }
 
 }

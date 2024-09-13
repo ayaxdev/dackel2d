@@ -20,7 +20,7 @@ public class ImageScene extends Scene {
         this.background = background;
     }
 
-    public void drawBackground(double windowWidth, double windowHeight, long delta) {
+    public void drawBackground(double windowWidth, double windowHeight, double delta) {
         Gui.Rectangles.textureAbsolute(0, 0, windowWidth, windowHeight, background.get(), -1);
 
         super.drawBackground(windowWidth, windowHeight, delta);

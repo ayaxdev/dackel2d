@@ -15,7 +15,7 @@ public class Main extends Application {
                 .setWidth(600)
                 .setResizeable(true)
                 .setScene(new TestScene())
-                .setVsync(true)
+                .setVsync(false)
                 .build());
     }
 

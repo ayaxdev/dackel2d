@@ -138,7 +138,7 @@ public class Application {
             openScene(currentScene);
         }
 
-        long time = System.nanoTime();
+        long lastTime = System.nanoTime();
 
         while (!display.isCloseRequested()) {
             final long currentTime = System.nanoTime();
@@ -149,13 +149,12 @@ public class Application {
                 framesPerSecond = 0;
             }
 
-            final long delta = currentTime - time;
+            final double delta = (currentTime - lastTime) / 1000000d;
+            lastTime = System.nanoTime();
 
             loop(delta);
 
             framesPerSecond++;
-
-            time = System.nanoTime();
         }
 
         display.destroy();
@@ -189,7 +188,7 @@ public class Application {
         GlManager.resetColor();
     }
 
-    private void loop(long delta) {
+    private void loop(double delta) {
         GlManager.clear();
 
         in();

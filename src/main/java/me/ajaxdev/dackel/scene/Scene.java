@@ -22,15 +22,15 @@ public class Scene implements IScene {
 
     public void postShow() { }
 
-    public void drawBackground(double windowWidth, double windowHeight, long delta) {
+    public void drawBackground(double windowWidth, double windowHeight, double delta) {
         components.forEach(component -> component.drawBackground(windowWidth, windowHeight, delta));
     }
 
-    public void drawOverlay(double windowWidth, double windowHeight, long delta) {
+    public void drawOverlay(double windowWidth, double windowHeight, double delta) {
         components.forEach(component -> component.drawOverlay(windowWidth, windowHeight, delta));
     }
 
-    public void drawGame(double windowWidth, double windowHeight, long delta) {
+    public void drawGame(double windowWidth, double windowHeight, double delta) {
         components.forEach(component -> component.drawGame(windowWidth, windowHeight, delta));
         objects.forEach(GameObject::draw);
     }

@@ -2,11 +2,11 @@ package me.ajaxdev.dackel.components;
 
 public interface IComponent {
 
-    default void drawBackground(double windowWidth, double windowHeight, long delta) { }
+    default void drawBackground(double windowWidth, double windowHeight, double delta) { }
 
-    default void drawOverlay(double windowWidth, double windowHeight, long delta) { }
+    default void drawOverlay(double windowWidth, double windowHeight, double delta) { }
 
-    default void drawGame(double windowWidth, double windowHeight, long delta) { }
+    default void drawGame(double windowWidth, double windowHeight, double delta) { }
 
     default void mouseClicked(double x, double y, int button) { }
 
