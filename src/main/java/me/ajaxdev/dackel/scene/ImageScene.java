@@ -12,6 +12,10 @@ public class ImageScene extends Scene {
 
     public final Supplier<ITexture> background;
 
+    public ImageScene(final String textureName) {
+        this.background = () -> getLastApplication().textureManager.get(textureName);
+    }
+
     public ImageScene(ITexture background) {
         this.background = () -> background;
     }
