@@ -143,7 +143,7 @@ public class Application {
         while (!display.isCloseRequested()) {
             final long currentTime = System.nanoTime();
 
-            if (currentTime - lastUpdate >= 1000) {
+            if ((currentTime - lastUpdate) / 1000000 >= 1000) {
                 lastUpdate = currentTime;
                 lastFramesPerSecond = framesPerSecond;
                 framesPerSecond = 0;
