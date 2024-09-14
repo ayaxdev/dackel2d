@@ -38,10 +38,10 @@ public class TestScene extends Scene {
         }
 
         switch (state) {
-            case 0 -> this.getLastApplication().camera.moveTo(0, 0);
-            case 1 -> this.getLastApplication().camera.moveTo(400, 0);
-            case 2 -> this.getLastApplication().camera.moveTo(450, 0);
-            case 3 -> this.getLastApplication().camera.moveTo(500, 0);
+            case 0 -> this.getLastApplication().camera.position.set(0, 0);
+            case 1 -> this.getLastApplication().camera.position.set(400, 0);
+            case 2 -> this.getLastApplication().camera.position.set(450, 0);
+            case 3 -> this.getLastApplication().camera.position.set(500, 0);
         }
     }
 

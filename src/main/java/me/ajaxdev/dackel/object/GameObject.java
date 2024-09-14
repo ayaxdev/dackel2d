@@ -8,7 +8,7 @@ public class GameObject {
 
     public ITexture texture;
 
-    public Vec2d position;
+    public final Vec2d position;
     public double width, height;
     public int color;
 

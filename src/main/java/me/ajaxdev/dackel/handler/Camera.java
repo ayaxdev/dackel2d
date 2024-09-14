@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class Camera {
 
-    public Vec2d position;
+    public Vec2d position = new Vec2d();
 
     /**
      * Translates the current matrix.
