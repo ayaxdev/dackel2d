@@ -2,12 +2,13 @@ package me.ajaxdev.dackel.object;
 
 import me.ajaxdev.dackel.renderer.Gui;
 import me.ajaxdev.dackel.texture.ITexture;
+import me.ajaxdev.dackel.util.Vec2d;
 
 public class GameObject {
 
     public ITexture texture;
 
-    public double x, y;
+    public Vec2d position;
     public double width, height;
     public int color;
 
@@ -26,8 +27,7 @@ public class GameObject {
     public GameObject(final ITexture texture, final double x, final double y, final double width, final double height, final int color) {
         this.texture = texture;
 
-        this.x = x;
-        this.y = y;
+        this.position = new Vec2d(x, y);
         this.width = width;
         this.height = height;
         this.color = color;
@@ -45,8 +45,7 @@ public class GameObject {
     public GameObject(final ITexture texture, final double x, final double y, final double width, final double height) {
         this.texture = texture;
 
-        this.x = x;
-        this.y = y;
+        this.position = new Vec2d(x, y);
         this.width = width;
         this.height = height;
         this.color = -1;
@@ -63,8 +62,7 @@ public class GameObject {
     public GameObject(final ITexture texture, final double x, final double y, final int color) {
         this.texture = texture;
 
-        this.x = x;
-        this.y = y;
+        this.position = new Vec2d(x, y);
         this.width = texture.getWidth();
         this.height = texture.getHeight();
         this.color = color;
@@ -80,8 +78,7 @@ public class GameObject {
     public GameObject(final ITexture texture, final double x, final double y) {
         this.texture = texture;
 
-        this.x = x;
-        this.y = y;
+        this.position = new Vec2d(x, y);
         this.width = texture.getWidth();
         this.height = texture.getHeight();
         this.color = -1;
@@ -99,7 +96,7 @@ public class GameObject {
 
         update(windowWidth, windowHeight, delta);
 
-        Gui.Rectangles.textureRelative(x, y, width, height, texture, color);
+        Gui.Rectangles.textureRelative(position.x, position.y, width, height, texture, color);
     }
 
     /**
@@ -111,26 +108,5 @@ public class GameObject {
      * Called every frame.
      */
     protected void update(double windowWidth, double windowHeight, double delta) { }
-
-    /**
-     * Moves the object to a provided location.
-     *
-     * @param x The provided location's X axis.
-     * @param y The provided location's Y axis.
-     */
-    public void moveTo(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Moves the object by a provided delta.
-     *
-     * @param x The provided delta's X axis.
-     * @param y The provided delta's Y axis.
-     */
-    public void moveBy(double x, double y) {
-        moveTo(this.x + x, this.y + y);
-    }
 
 }

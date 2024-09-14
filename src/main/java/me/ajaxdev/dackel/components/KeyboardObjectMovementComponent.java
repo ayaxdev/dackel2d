@@ -27,17 +27,17 @@ public class KeyboardObjectMovementComponent implements IComponent {
 
         if (left ^ right) {
             if (left) {
-                object.x -= curSpeed;
+                object.position.sub(curSpeed, 0);
             } else {
-                object.x += curSpeed;
+                object.position.add(curSpeed, 0);
             }
         }
 
         if (top ^ bottom) {
             if (top) {
-                object.y -= curSpeed;
+                object.position.sub(0, curSpeed);
             } else {
-                object.y += curSpeed;
+                object.position.add(0, curSpeed);
             }
         }
     }

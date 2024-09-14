@@ -1,5 +1,6 @@
 package me.ajaxdev.dackel.handler;
 
+import me.ajaxdev.dackel.util.Vec2d;
 import org.lwjgl.opengl.GL11;
 
 /**
@@ -7,14 +8,14 @@ import org.lwjgl.opengl.GL11;
  */
 public class Camera {
 
-    public double x = 0, y = 0;
+    public Vec2d position;
 
     /**
      * Translates the current matrix.
      * Everything rendered after this and before end() will be affected by the camera movement.
      */
     public void begin() {
-        GL11.glTranslated(-x, -y, 0);
+        GL11.glTranslated(-position.x, -position.y, 0);
     }
 
     /**
@@ -22,28 +23,7 @@ public class Camera {
      * Everything rendered before this and after begin() will be affected by the camera movement.
      */
     public void end() {
-        GL11.glTranslated(x, y, 0);
-    }
-
-    /**
-     * Moves the camera to a provided location.
-     *
-     * @param x The provided location's X axis.
-     * @param y The provided location's Y axis.
-     */
-    public void moveTo(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    /**
-     * Moves the camera by a provided delta.
-     *
-     * @param x The provided delta's X axis.
-     * @param y The provided delta's Y axis.
-     */
-    public void moveBy(double x, int y) {
-        moveTo(this.x + x, this.y + y);
+        GL11.glTranslated(position.x, position.y, 0);
     }
 
 }
