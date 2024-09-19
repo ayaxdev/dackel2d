@@ -38,7 +38,7 @@ public class GameObject {
      */
     public int color;
 
-    private boolean firstUse = true;
+    private int framesAlive = 0;
 
     /**
      * Creates a new game object.
@@ -114,15 +114,15 @@ public class GameObject {
      * Is used internally by the engine to draw the object.
      */
     public void draw(double windowWidth, double windowHeight, double delta) {
-        if (firstUse) {
+        if (framesAlive == 0) {
             init();
-
-            firstUse = false;
         }
 
         update(windowWidth, windowHeight, delta);
 
         Gui.Rectangles.textureRelative(position.x, position.y, width, height, texture, color);
+
+        framesAlive++;
     }
 
     /**
@@ -168,4 +168,10 @@ public class GameObject {
         return true;
     }
 
+    /**
+     * @return How long the game object was alive.
+     */
+    public int getFramesAlive() {
+        return framesAlive;
+    }
 }
