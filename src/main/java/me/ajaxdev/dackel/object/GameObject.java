@@ -139,4 +139,33 @@ public class GameObject {
         components.forEach(component -> component.update(windowWidth, windowHeight, delta));
     }
 
+    /**
+     * @param other     The other game object.
+     * @return          Whether this object intercepts with the other object.
+     */
+    public boolean intercepts(final GameObject other) {
+        return intercepts(other.position.x, other.position.y, other.width, other.height);
+    }
+
+    /**
+     * @param x         X position.
+     * @param y         Y position.
+     * @param width     The width.
+     * @param height    The height.
+     * @return          Whether this object intercepts with the provided bounds.
+     */
+    public boolean intercepts(final double x, final double y, final double width, final double height) {
+        // Check for conditions where rectangles DON'T intersect
+        // If any of these are true, then the rectangles don't intersect
+        if (this.position.x + this.width <= x // this is to the left of other
+                || this.position.x >= x + width // this is to the right of other
+                || this.position.y + this.height <= y // this is above other
+                || this.position.y >= y + height) { // this is below other
+            return false;
+        }
+
+        // If none of the above conditions are met, the rectangles must intersect
+        return true;
+    }
+
 }
