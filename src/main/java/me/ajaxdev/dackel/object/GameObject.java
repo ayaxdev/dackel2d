@@ -2,14 +2,35 @@ package me.ajaxdev.dackel.object;
 
 import me.ajaxdev.dackel.renderer.Gui;
 import me.ajaxdev.dackel.texture.ITexture;
+import me.ajaxdev.dackel.util.MathHelper;
 import me.ajaxdev.dackel.util.Vec2d;
 
 public class GameObject {
 
+    /**
+     * The texture of the object.
+     * Is used to draw the object.
+     */
     public ITexture texture;
 
+    /**
+     * The position of the object.
+     */
     public final Vec2d position;
+
+    /**
+     * The size of the object.
+     */
     public double width, height;
+
+    /**
+     * The angle of the object.
+     */
+    public double angle;
+
+    /**
+     * The color of the object.
+     */
     public int color;
 
     private boolean firstUse = true;
@@ -97,6 +118,24 @@ public class GameObject {
         update(windowWidth, windowHeight, delta);
 
         Gui.Rectangles.textureRelative(position.x, position.y, width, height, texture, color);
+    }
+
+    /**
+     * Moves the game object forward by a specified amount.
+     *
+     * @param distance The distance the object shall travel.
+     */
+    public void forward(final double distance) {
+        this.position.forward(this.angle, distance);
+    }
+
+    /**
+     * Rotates the object by a specified angle.
+     *
+     * @param angle The angle by which the object shall rotate.
+     */
+    public void rotate(final double angle) {
+        this.angle = MathHelper.wrapDegrees(this.angle + angle);
     }
 
     /**
