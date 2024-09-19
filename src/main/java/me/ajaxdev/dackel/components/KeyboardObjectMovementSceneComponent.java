@@ -2,7 +2,7 @@ package me.ajaxdev.dackel.components;
 
 import me.ajaxdev.dackel.object.GameObject;
 
-public class KeyboardObjectMovementComponent implements IComponent {
+public class KeyboardObjectMovementSceneComponent implements ISceneComponent {
 
     private final GameObject object;
     private final double speed;
@@ -11,7 +11,7 @@ public class KeyboardObjectMovementComponent implements IComponent {
 
     private boolean top = false, bottom = false, left = false, right = false;
 
-    public KeyboardObjectMovementComponent(final GameObject object, final double speed, final int topKey, final int bottomKey, final int leftKey, final int rightKey) {
+    public KeyboardObjectMovementSceneComponent(final GameObject object, final double speed, final int topKey, final int bottomKey, final int leftKey, final int rightKey) {
         this.object = object;
         this.speed = speed;
 

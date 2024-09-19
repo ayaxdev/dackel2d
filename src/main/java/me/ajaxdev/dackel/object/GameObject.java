@@ -1,9 +1,13 @@
 package me.ajaxdev.dackel.object;
 
+import me.ajaxdev.dackel.components.IObjectComponent;
 import me.ajaxdev.dackel.renderer.Gui;
 import me.ajaxdev.dackel.texture.ITexture;
 import me.ajaxdev.dackel.util.MathHelper;
 import me.ajaxdev.dackel.util.Vec2d;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameObject {
 
@@ -24,9 +28,10 @@ public class GameObject {
     public double width, height;
 
     /**
-     * The angle of the object.
+     * List of the object components.
+     * These get ran along the object.
      */
-    public double angle;
+    public final List<IObjectComponent> components = new ArrayList<>();
 
     /**
      * The color of the object.
@@ -121,31 +126,17 @@ public class GameObject {
     }
 
     /**
-     * Moves the game object forward by a specified amount.
-     *
-     * @param distance The distance the object shall travel.
-     */
-    public void forward(final double distance) {
-        this.position.forward(this.angle, distance);
-    }
-
-    /**
-     * Rotates the object by a specified angle.
-     *
-     * @param angle The angle by which the object shall rotate.
-     */
-    public void rotate(final double angle) {
-        this.angle = MathHelper.wrapDegrees(this.angle + angle);
-    }
-
-    /**
      * Called when the game object is first used.
      */
-    protected void init() { }
+    protected void init() {
+        components.forEach(IObjectComponent::init);
+    }
 
     /**
      * Called every frame.
      */
-    protected void update(double windowWidth, double windowHeight, double delta) { }
+    protected void update(double windowWidth, double windowHeight, double delta) {
+        components.forEach(component -> component.update(windowWidth, windowHeight, delta));
+    }
 
 }

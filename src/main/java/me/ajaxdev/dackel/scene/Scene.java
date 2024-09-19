@@ -1,7 +1,7 @@
 package me.ajaxdev.dackel.scene;
 
 import me.ajaxdev.dackel.Application;
-import me.ajaxdev.dackel.components.IComponent;
+import me.ajaxdev.dackel.components.ISceneComponent;
 import me.ajaxdev.dackel.object.GameObject;
 
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class Scene implements IScene {
 
     public final List<GameObject> objects = new ArrayList<>();
 
-    public final List<IComponent> components = new ArrayList<>();
+    public final List<ISceneComponent> components = new ArrayList<>();
 
     private Application lastApplication;
 

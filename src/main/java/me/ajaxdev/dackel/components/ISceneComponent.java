@@ -1,6 +1,6 @@
 package me.ajaxdev.dackel.components;
 
-public interface IComponent {
+public interface ISceneComponent {
 
     default void drawBackground(double windowWidth, double windowHeight, double delta) { }
 
